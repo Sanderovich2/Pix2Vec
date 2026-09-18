@@ -1,5 +1,9 @@
 # Pix2Vec
 
+[![Python](https://img.shields.io/badge/python-3.10%2B-3776ab.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-2ea44f.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-informational.svg)
+
 **Pix2Vec** — консольный конвертер растровых изображений (PNG, JPEG, WEBP, BMP, GIF, TIFF, ICO и др.) в векторный SVG с пакетной обработкой и профилями качества. Из пикселей в векторы одной командой. Работает офлайн, интерфейс — консоль на русском языке.
 
 Основан на движке [visioncortex VTracer](https://github.com/visioncortex/vtracer) (через Python-биндинг `vtracer`) и Pillow.
@@ -80,6 +84,7 @@ pix2vec/
   worker.py     # изолированный воркер одного файла
   main.py       # CLI, меню, прогресс, сводка
 tests/          # unittest-тесты
+docs/           # памятка по настройке репозитория
 input/          # исходные картинки (создаётся автоматически)
 output/         # готовые SVG
 logs/           # логи запусков
