@@ -51,8 +51,8 @@ gh release create v1.0.0 --title "Pix2Vec v1.0.0" --notes-file .github/RELEASE_N
 
 ## CI-бейдж в README
 
-После первого пуша добавь под заголовком (замени `ЛОГИН` на свой):
+Бейдж CI уже стоит в README проекта (репозиторий `Sanderovich2/Pix2Vec`):
 
 ```markdown
-[![CI](https://github.com/ЛОГИН/pix2vec/actions/workflows/ci.yml/badge.svg)](https://github.com/ЛОГИН/pix2vec/actions/workflows/ci.yml)
+[![CI](https://github.com/Sanderovich2/Pix2Vec/actions/workflows/ci.yml/badge.svg)](https://github.com/Sanderovich2/Pix2Vec/actions/workflows/ci.yml)
 ```

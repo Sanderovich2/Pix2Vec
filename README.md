@@ -1,5 +1,6 @@
 # Pix2Vec
 
+[![CI](https://github.com/Sanderovich2/Pix2Vec/actions/workflows/ci.yml/badge.svg)](https://github.com/Sanderovich2/Pix2Vec/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776ab.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-2ea44f.svg)](LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-informational.svg)
