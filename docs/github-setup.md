@@ -4,11 +4,11 @@
 
 ## Описание репозитория (About)
 
-Поле **Description** на странице репозитория (шестерёнка справа от блока About):
+Поле **Description** на странице репозитория (шестерёнка справа от блока About). Уже заполнено (на английском):
 
 ```
-Pix2Vec — конвертер растровых изображений (PNG, JPEG, WEBP, BMP, GIF, TIFF, ICO) в векторный SVG.
-6 профилей трассировки, пакетная обработка, изолированные воркеры. Python, Windows-first.
+Pix2Vec: convert raster images (PNG, JPEG, WEBP, BMP, GIF, TIFF, ICO) into vector SVG.
+6 tracing profiles, batch processing, crash-isolated workers. Python CLI, Windows-first.
 ```
 
 Сайт (Website) можно оставить пустым.
@@ -48,6 +48,13 @@ gh release create v1.0.0 --title "Pix2Vec v1.0.0" --notes-file .github/RELEASE_N
 2. Добавить раздел в `CHANGELOG.md`.
 3. Положить заметки в `.github/RELEASE_NOTES_v1.1.0.md`.
 4. `git tag -a v1.1.0 -m "Pix2Vec 1.1.0"` и `git push origin main --tags`.
+
+## README
+
+- `README.md` — английский (основной, его показывает GitHub).
+- `README.ru.md` — русская версия, связаны взаимными ссылками.
+
+При правках держи обе версии синхронными.
 
 ## CI-бейдж в README
 
