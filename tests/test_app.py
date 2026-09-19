@@ -83,14 +83,16 @@ class ProfileTests(unittest.TestCase):
 
 
 class PrepareImageTests(unittest.TestCase):
-    def test_alpha_composited_on_white(self):
+    def test_color_preserves_transparency(self):
         img = Image.new("RGBA", (10, 10), (255, 0, 0, 0))  # полностью прозрачный
         out = prepare_image(img, get_profile("color"))
-        self.assertIn(out.mode, ("RGB", "RGBA"))  # цветной профиль допускает RGBA
-        px = out.getpixel((5, 5))
-        self.assertGreater(min(px[:3]), 240)  # стал белым
-        if out.mode == "RGBA":
-            self.assertEqual(px[3], 255)  # и непрозрачным
+        self.assertEqual(out.mode, "RGBA")  # цветной профиль сохраняет alpha
+        self.assertEqual(out.getpixel((5, 5))[3], 0)  # прозрачность не затёрта белым
+
+    def test_binary_composites_white(self):
+        img = Image.new("RGBA", (10, 10), (255, 0, 0, 0))  # полностью прозрачный
+        out = prepare_image(img, get_profile("logo"))
+        self.assertEqual(out.getpixel((5, 5)), (255, 255, 255))  # ч/б профиль: белый фон
 
     def test_threshold_binarizes(self):
         img = Image.new("RGB", (10, 10), (10, 10, 10))
