@@ -1,0 +1,60 @@
+name: Баг-репорт
+description: Сообщить о проблеме в Pix2Vec
+title: "[Баг]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо за отчёт! Заполни все поля — так причину получится найти быстрее.
+  - type: input
+    id: version
+    attributes:
+      label: Версия Pix2Vec
+      description: Вывод `python -m pix2vec.main --version`
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Операционная система
+      options:
+        - Windows 11
+        - Windows 10
+        - Linux
+        - macOS
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Версия Python
+      placeholder: "3.14.0"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Что произошло
+      description: Опиши проблему и что ожидалось вместо неё
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Как воспроизвести
+      placeholder: |
+        1. Положил logo.png в input/
+        2. Запустил run.bat, выбрал режим 3
+        3. В сводке ERR ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Логи и вывод консоли
+      description: Вывод в консоли и файл из logs/
+      render: text
+    validations:
+      required: false

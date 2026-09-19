@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve release notes file
+        id: notes
+        run: |
+          FILE=".github/RELEASE_NOTES_${GITHUB_REF_NAME}.md"
+          if [ -f "$FILE" ]; then
+            echo "file=$FILE" >> "$GITHUB_OUTPUT"
+          else
+            echo "file=" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NOTES_FILE: ${{ steps.notes.outputs.file }}
+        run: |
+          if [ -n "$NOTES_FILE" ]; then
+            gh release create "$GITHUB_REF_NAME" \
+              --title "Pix2Vec $GITHUB_REF_NAME" \
+              --notes-file "$NOTES_FILE"
+          else
+            gh release create "$GITHUB_REF_NAME" \
+              --title "Pix2Vec $GITHUB_REF_NAME" \
+              --generate-notes
+          fi

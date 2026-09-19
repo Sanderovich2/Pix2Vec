@@ -1,58 +1,65 @@
 # Pix2Vec
 
-**Pix2Vec** — консольный конвертер растровых изображений (PNG, JPEG, WEBP, BMP, GIF, TIFF, ICO и др.) в векторный SVG с пакетной обработкой и профилями качества. Из пикселей в векторы одной командой. Работает офлайн, интерфейс — консоль на русском языке.
+[![CI](https://github.com/Sanderovich2/Pix2Vec/actions/workflows/ci.yml/badge.svg)](https://github.com/Sanderovich2/Pix2Vec/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.10%2B-3776ab.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-2ea44f.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-informational.svg)
 
-Основан на движке [visioncortex VTracer](https://github.com/visioncortex/vtracer) (через Python-биндинг `vtracer`) и Pillow.
+**Pix2Vec** is a command-line converter that turns raster images (PNG, JPEG, WEBP, BMP, GIF, TIFF, ICO and more) into vector SVG, with batch processing and quality profiles. From pixels to vectors in one command. Runs fully offline.
 
-## Возможности
+Русская версия: [README.ru.md](README.ru.md)
 
-- **Пакетная конвертация** папки с изображениями, включая подпапки
-- **6 профилей трассировки** под разные задачи — от фото до ч/б логотипов
-- Изолированный воркер-процесс на каждый файл: падение движка не рушит пакет
-- Прогресс-бар и итоговая таблица (размер до/после, время)
-- Прозрачность сводится на белый фон, корректный `viewBox` и целые размеры в каждом SVG
-- Цветной вывод, который сам отключается в пайпах и старых консолях
-- Windows-first (готовый `run.bat`), работает и на Linux/macOS
+Powered by [visioncortex VTracer](https://github.com/visioncortex/vtracer) (through the `vtracer` Python binding) and Pillow.
 
-## Профили
+## Features
 
-| Профиль | Назначение |
+- **Batch conversion** of a whole folder, including subfolders
+- **6 tracing profiles** for different jobs, from photos to black-and-white logos
+- **Isolated worker process** per file: if the engine crashes on one image, the batch survives
+- Progress bar and a result table (size before/after, elapsed time)
+- Transparency is flattened onto white; every SVG gets a proper `viewBox` and integer dimensions
+- Colored output that disables itself in pipes and legacy consoles
+- Windows-first (one-click `run.bat`), also works on Linux and macOS
+
+## Profiles
+
+| Profile | Purpose |
 |---|---|
-| `color` | Цветная трассировка — баланс качества и размера |
-| `photo` | Фотографии — сглаживание и крупные заливки, лёгкий SVG |
-| `logo` | Ч/Б логотип — тёмный рисунок на светлом фоне |
-| `logo_inv` | Ч/Б логотип — светлый рисунок на тёмном фоне |
-| `detailed` | Максимальная детализация (большой SVG) |
-| `sketch` | Эскиз — ч/б предобработка, гладкие крупные области |
+| `color` | Color tracing: balance between quality and size (default) |
+| `photo` | Photographs: smoothing and large fills, lighter SVG |
+| `logo` | Black-and-white logo: dark artwork on a light background |
+| `logo_inv` | Black-and-white logo: light artwork on a dark background |
+| `detailed` | Maximum detail (larger SVG) |
+| `sketch` | Sketch: grayscale preprocessing, large smooth areas |
 
-## Быстрый старт (Windows)
+## Quick start (Windows)
 
-1. Установи [Python 3.10+](https://www.python.org/downloads/) с галочкой «Add python.exe to PATH».
-2. Дважды щёлкни `run.bat` — он сам найдёт Python, создаст venv, поставит зависимости и запустит конвертер.
-3. Кинь картинки в папку `input/` (или перетащи папку на `run.bat`), выбери режим — готово, SVG появятся в `output/` и откроются в Проводнике.
+1. Install [Python 3.10+](https://www.python.org/downloads/) and tick "Add python.exe to PATH".
+2. Double-click `run.bat`. It locates Python, creates a virtual environment, installs dependencies and starts the converter.
+3. Drop images into `input/` (or drag a folder onto `run.bat`), pick a mode. The SVG files land in `output/` and the folder opens in Explorer.
 
 ## CLI
 
 ```bash
-python -m pix2vec.main [ПАПКА] [-p ПРОФИЛЬ] [-o ВЫХОД] [--overwrite] [--no-menu] [--no-open]
+python -m pix2vec.main [FOLDER] [-p PROFILE] [-o OUTPUT] [--overwrite] [--no-menu] [--no-open]
 ```
 
-| Аргумент | Описание |
+| Argument | Description |
 |---|---|
-| `ПАПКА` | входная папка (по умолчанию `input/`) |
-| `-p, --profile` | профиль трассировки (по умолчанию `color`) |
-| `-o, --output` | выходная папка (по умолчанию `output/`) |
-| `--overwrite` | перезаписывать существующие SVG (без него они пропускаются) |
-| `--no-menu` | не показывать интерактивное меню |
-| `--no-open` | не открывать папку результата в Проводнике |
-| `--version` | версия программы |
+| `FOLDER` | input folder (defaults to `input/`) |
+| `-p, --profile` | tracing profile (defaults to `color`) |
+| `-o, --output` | output folder (defaults to `output/`) |
+| `--overwrite` | overwrite existing SVGs (otherwise they are skipped) |
+| `--no-menu` | skip the interactive menu |
+| `--no-open` | do not open the output folder in the file manager |
+| `--version` | print the version |
 
-Примеры:
+Examples:
 
 ```bash
-python -m pix2vec.main                          # input/ → output/, меню
-python -m pix2vec.main C:\фото -p photo         # своя папка, профиль photo
-python -m pix2vec.main --overwrite --no-open    # перезапись без вопросов
+python -m pix2vec.main                          # input/ -> output/, interactive menu
+python -m pix2vec.main C:\photos -p photo       # custom folder, photo profile
+python -m pix2vec.main --overwrite --no-open    # overwrite without prompts
 ```
 
 ## Linux / macOS
@@ -64,33 +71,35 @@ pip install -r requirements.txt
 python -m pix2vec.main
 ```
 
-## Тесты
+## Tests
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-## Структура проекта
+## Project layout
 
 ```
 pix2vec/
-  config.py     # пути, реестр форматов, профили трассировки
-  tracer.py     # предобработка пикселей + вызов движка vtracer
-  converter.py  # пакетная обработка, воркер-процессы, логи
-  worker.py     # изолированный воркер одного файла
-  main.py       # CLI, меню, прогресс, сводка
-tests/          # unittest-тесты
-input/          # исходные картинки (создаётся автоматически)
-output/         # готовые SVG
-logs/           # логи запусков
-run.bat         # запуск в один клик на Windows
+  config.py     # paths, supported formats, tracing profiles
+  tracer.py     # pixel preprocessing + vtracer engine call
+  converter.py  # batch processing, worker processes, logs
+  worker.py     # isolated single-file worker
+  main.py       # CLI, menu, progress, summary
+tests/          # unittest suite
+docs/           # repository maintenance notes
+input/          # source images (created automatically)
+output/         # generated SVG files
+logs/           # run logs
+run.bat         # one-click launcher for Windows
 ```
 
-## Известные особенности
+## Known quirks
 
-- В `vtracer` 0.6.15 вызов с keyword-аргументами роняет процесс Python (segfault). Проект вызывает движок строго позиционными аргументами; если будешь править профили в `pix2vec/config.py`, сохраняй порядок кортежа `engine` — он описан в `ENGINE_DOC` в том же файле.
-- Форматы GIF/TIFF берутся первым кадром.
+- In `vtracer` 0.6.15, calling the engine with **keyword arguments crashes the Python process** (segfault). Pix2Vec calls it with positional arguments only. If you edit profiles in `pix2vec/config.py`, keep the order of the `engine` tuple documented in `ENGINE_DOC` in the same file.
+- Animated GIF/TIFF files are converted from their first frame only.
+- Two files in one folder with the same name but different extensions produce a single SVG (the second one is skipped unless `--overwrite` is used).
 
-## Лицензия
+## License
 
-MIT — см. [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
